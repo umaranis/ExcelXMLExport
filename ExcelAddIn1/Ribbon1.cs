@@ -93,12 +93,14 @@ namespace ExcelAddIn1
                 //traversing through the rows
                 int rowNo = 2;
                 string [] rowValues = new string[columns.Count];
+
                 do
                 {
                     colNum = null;
                     for (int i = 0; i < columns.Count; i++)
                     {
-                        r = sheet.get_Range(GetNextColumnNum(colNum) + rowNo.ToString(), missing);
+                        colNum = GetNextColumnNum(colNum);
+                        r = sheet.get_Range(colNum + rowNo.ToString(), missing);
                         rowValues[i] = Convert.ToString(r.Value2);
                     }
 
