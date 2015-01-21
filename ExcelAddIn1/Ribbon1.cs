@@ -68,10 +68,13 @@ namespace ExcelAddIn1
                 Excel.Worksheet sheet = Globals.ThisAddIn.Application.ActiveSheet;
                 Excel.Range r;
 
-                //Extracting the list of columns
-                for (int i = 65; i <= 90; i++)
+                //Extracting the list of columns from first row
+                string colNum = null;
+                do
                 {
-                    r = sheet.get_Range(((char)i).ToString() + "1", missing);
+                    colNum = GetNextColumnNum(colNum);
+                    string cellNumber = colNum + "1";
+                    r = sheet.get_Range(cellNumber, missing);
                     string value = r.Value2;
                     if (value != null)
                     {
@@ -80,8 +83,9 @@ namespace ExcelAddIn1
                     else
                     {
                         break;
-                    }
-                }
+                    }                    
+
+                } while(true);
 
                 f.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
                 f.WriteLine("<"+sheet.Name+">");
@@ -91,11 +95,11 @@ namespace ExcelAddIn1
                 string [] rowValues = new string[columns.Count];
                 do
                 {
-
-                    for (int i = 65; i < 65 + columns.Count; i++)
+                    colNum = null;
+                    for (int i = 0; i < columns.Count; i++)
                     {
-                        r = sheet.get_Range(((char)i).ToString() + rowNo.ToString(), missing);
-                        rowValues[i - 65] = Convert.ToString(r.Value2);
+                        r = sheet.get_Range(GetNextColumnNum(colNum) + rowNo.ToString(), missing);
+                        rowValues[i] = Convert.ToString(r.Value2);
                     }
 
                     if (IsRowNull(rowValues))
@@ -154,6 +158,37 @@ namespace ExcelAddIn1
                 }
             }
             return null;
+        }
+
+        private static string GetNextColumnNum(string colNum)
+        {
+            if (string.IsNullOrEmpty(colNum))
+            {
+                return "A";
+            }
+            else
+            {
+                char lastChar = colNum[colNum.Length - 1];
+                string colNumPreceedingPart = colNum.Substring(0, colNum.Length - 1);
+                int tmpLastChar = (int)lastChar;
+                if (tmpLastChar < 90)
+                {
+                    lastChar = (char)((int)lastChar + 1);
+                    return colNumPreceedingPart + lastChar.ToString();
+                }
+                else
+                {
+                    if(string.IsNullOrEmpty(colNumPreceedingPart))
+                    {
+                        return "AA";
+                    }
+                    else
+                    {
+                        return GetNextColumnNum(colNumPreceedingPart) + "A";
+                    }
+                }
+
+            }
         }
 
         #endregion

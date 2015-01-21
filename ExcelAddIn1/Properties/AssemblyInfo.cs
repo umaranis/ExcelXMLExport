@@ -7,11 +7,11 @@ using System.Security;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ExcelExportXML")]
-[assembly: AssemblyDescription("Microsoft Excel 2010 Add-in for exporting data to XML")]
+[assembly: AssemblyDescription("Microsoft Excel 2010/2013 Add-in for exporting data to XML")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Syed Umar Anis")]
 [assembly: AssemblyProduct("ExcelExportXML")]
-[assembly: AssemblyCopyright("Copyright © Syed Umar Anis 2011")]
+[assembly: AssemblyCopyright("Copyright © Syed Umar Anis 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,5 +33,5 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
